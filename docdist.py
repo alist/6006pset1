@@ -1,4 +1,5 @@
 #!/usr/bin/python
+#pylint: disable=W0141
 
 import string
 import sys
@@ -29,12 +30,40 @@ def extract_words(filename):
 ##############################################
 def doc_dist(word_list1, word_list2):
     """
-    Returns a float representing the document distance 
+    Returns a float representing the document distance
     in radians between two files when given the list of
     words from both files
     """
-    #TODO
-    pass
+    #I store tuples (doc 1, doc2) at each dictionary location
+    #I cosign the whole dictionary by iterating through keys
+    # So I'll probably use cosign for this
+    frequencies = {"example" : [0, 0]}
+    def add_b_may_b_none(a, b):
+        if a is None or b is None:
+            print "{0}=a + {1}=b (b if b is not None else 0)".format(a, b)
+        return a + (b if b is not None else 0)
+    lists = [word_list1, word_list2]
+    for ai, alist in enumerate(lists):
+        for word in alist:
+            #addition array for particular word
+            addArray = [0]*(len(lists))
+            addArray[ai] = 1
+            frequencies[word] = addArray if word not in frequencies else \
+                map(add_b_may_b_none, addArray, frequencies[word])
+
+    magsSquared = [0.0]*len(lists)
+    dot = 0.0
+    for freq in frequencies.itervalues():
+        magsSquared = map(lambda x, y: x + pow(y, 2), magsSquared, freq)
+        dot = dot + reduce(lambda x, y: x * y, freq)
+
+    print magsSquared
+    mags = map(math.sqrt, magsSquared)
+    denominator = reduce(lambda x, y: x * y, mags)
+    cosign = dot / denominator
+
+    radians = math.acos(cosign)
+    return radians
 
 ##############################################
 ## Part b. Count the frequency of each pair ##
@@ -42,12 +71,12 @@ def doc_dist(word_list1, word_list2):
 def doc_dist_pairs(word_list1, word_list2):
     """
     Returns a float representing the document distance
-    in radians between two files based on unique 
+    in radians between two files based on unique
     consecutive pairs of words when given the list of
     words from both files
     """
-    #TODO
-    pass
+    # so the same approach as doc_dist, except when lists are iterated through, we insert "\(words[i]) \(words[i+1])"
+    return 1
 
 #############################################################
 ## Part c. Count the frequency of the 50 most common words ##
@@ -55,9 +84,9 @@ def doc_dist_pairs(word_list1, word_list2):
 def doc_dist_50(word_list1, word_list2):
     """
     Returns a float representing the document distance
-    in radians between two files based on the 
+    in radians between two files based on the
     50 most common unique words when given the list of
     words from both files
     """
-    #TODO
-    pass
+    # we could store
+    return 0

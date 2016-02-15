@@ -1,5 +1,4 @@
 #!/usr/bin/python
-#pylint: disable=W0141
 
 import string
 import sys
@@ -34,14 +33,10 @@ def doc_dist(word_list1, word_list2):
     in radians between two files when given the list of
     words from both files
     """
-    #I store tuples (doc 1, doc2) at each dictionary location
-    #I cosign the whole dictionary by iterating through keys
-    # So I'll probably use cosign for this
-    frequencies = {"example" : [0, 0]}
-    def add_b_may_b_none(a, b):
-        if a is None or b is None:
-            print "{0}=a + {1}=b (b if b is not None else 0)".format(a, b)
-        return a + (b if b is not None else 0)
+    #pylint: disable=W0110,W0141
+    #I store lists [doc 1, doc2] at each dictionary location
+    #I cosign the whole dictionary by iterating through values
+    frequencies = {"emptyexample" : [0, 0]}
     lists = [word_list1, word_list2]
     for ai, alist in enumerate(lists):
         for word in alist:
@@ -49,7 +44,7 @@ def doc_dist(word_list1, word_list2):
             addArray = [0]*(len(lists))
             addArray[ai] = 1
             frequencies[word] = addArray if word not in frequencies else \
-                map(add_b_may_b_none, addArray, frequencies[word])
+                map(lambda a, b: a + (b if b is not None else 0), addArray, frequencies[word])
 
     magsSquared = [0.0]*len(lists)
     dot = 0.0
@@ -57,7 +52,6 @@ def doc_dist(word_list1, word_list2):
         magsSquared = map(lambda x, y: x + pow(y, 2), magsSquared, freq)
         dot = dot + reduce(lambda x, y: x * y, freq)
 
-    print magsSquared
     mags = map(math.sqrt, magsSquared)
     denominator = reduce(lambda x, y: x * y, mags)
     cosign = dot / denominator

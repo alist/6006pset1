@@ -69,8 +69,33 @@ def doc_dist_pairs(word_list1, word_list2):
     consecutive pairs of words when given the list of
     words from both files
     """
-    # so the same approach as doc_dist, except when lists are iterated through, we insert "\(words[i]) \(words[i+1])"
-    return 1
+    #pylint: disable=W0110,W0141
+    # The same approach as doc_dist, except when lists are iterated through
+    #       I insert "\(words[i]) \(words[i+1])"
+    frequencies = {"emptyexample" : [0, 0]}
+    lists = [word_list1, word_list2]
+    for ai, alist in enumerate(lists):
+        for i, word in enumerate(alist):
+            if i >= len(alist) -2: break
+            addArray = [0]*(len(lists))
+            addArray[ai] = 1
+            wordpair = "{0} {1}".format(word, alist[i+1])
+            frequencies[wordpair] = \
+                addArray if wordpair not in frequencies else \
+                map(lambda a, b: a + (b if b is not None else 0), addArray, frequencies[wordpair])
+
+    magsSquared = [0.0]*len(lists)
+    dot = 0.0
+    for freq in frequencies.itervalues():
+        magsSquared = map(lambda x, y: x + pow(y, 2), magsSquared, freq)
+        dot = dot + reduce(lambda x, y: x * y, freq)
+
+    mags = map(math.sqrt, magsSquared)
+    denominator = reduce(lambda x, y: x * y, mags)
+    cosign = dot / denominator
+
+    radians = math.acos(cosign)
+    return radians
 
 #############################################################
 ## Part c. Count the frequency of the 50 most common words ##
@@ -82,5 +107,8 @@ def doc_dist_50(word_list1, word_list2):
     50 most common unique words when given the list of
     words from both files
     """
-    # we could store
+    #pylint: disable=W0110,W0141
+    # well you could iterate 50 times to find the highest element, since we're zipped together
+    # hmm... how should you do that
+    #vectors that count just the 50 words that appear most frequently for each file in the comparison
     return 0

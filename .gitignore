@@ -1,3 +1,8 @@
 *.out
 *.in
 *.pyc
+*.aux
+*.fls
+*.log
+*.synctex.gz
+*.fdb_latexmk

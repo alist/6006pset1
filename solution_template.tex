@@ -24,7 +24,7 @@
 
 \begin{document}
 
-\handout{Problem Set \theproblemsetnum}{February 5, 2015}
+\handout{Problem Set \theproblemsetnum}{February 18, 2016}
 
 \textbf{All parts are due {\bf \partaduedate} at {\bf 11:59PM}}.
 
@@ -36,11 +36,11 @@
 
 \medskip
 
-{\bf Name:} Your Name
+{\bf Name:} Alex List
 
 \medskip
 
-{\bf Collaborators:} Name1, Name2 
+{\bf Collaborators:} /
 
 \medskip
 
@@ -58,38 +58,38 @@
 
 % You can create unnumbered lists as follows:
 %\begin{itemize}
-%    \item First item in a list 
+%    \item First item in a list
 %        \begin{itemize}
-%            \item First item in a list 
+%            \item First item in a list
 %                \begin{itemize}
-%                    \item First item in a list 
-%                    \item Second item in a list 
+%                    \item First item in a list
+%                    \item Second item in a list
 %                \end{itemize}
-%            \item Second item in a list 
+%            \item Second item in a list
 %        \end{itemize}
-%    \item Second item in a list 
+%    \item Second item in a list
 %\end{itemize}
 
 % You can create numbered lists as follows:
 %\begin{enumerate}
-%    \item First item in a list 
-%    \item Second item in a list 
+%    \item First item in a list
+%    \item Second item in a list
 %    \item Third item in a list
 %\end{enumerate}
 
 % You can write aligned equations as follows:
-%\begin{align} 
+%\begin{align}
 %    \begin{split}
 %        (x+y)^3 &= (x+y)^2(x+y) \\
 %                &= (x^2+2xy+y^2)(x+y) \\
 %                &= (x^3+2x^2y+xy^2) + (x^2y+2xy^2+y^3) \\
 %                &= x^3+3x^2y+3xy^2+y^3
-%    \end{split}                                 
+%    \end{split}
 %\end{align}
 
 % You can create grids/matrices as follows:
 %\begin{align}
-%    A = 
+%    A =
 %    \begin{bmatrix}
 %        A_{11} & A_{21} \\
 %        A_{21} & A_{22}
@@ -103,9 +103,109 @@
 \problem  % Problem 1
 
 \begin{problemparts}
-\problempart  % Problem 1a)
+\problempart % Problem 1a)
+$f2 = log(4n^{n^{4}})=n^{4}log(n)$
+
+$f2>f1 \rightarrow f1 = O(f2)$
+
+$f3 = 4log(4n)log(n) \simeq log(n)log(n) = log^{2}(n)$
+
+$ \lim n \rightarrow \inf f3/f2 = \lim n \rightarrow \inf log^{2}(n) / n^{4}log(n) = \lim n \rightarrow \inf log(n) / n^{4} = 0 $
+
+$\rightarrow f3 = O(f2) $
+
+$ \lim n \rightarrow \inf f3/f4 = \lim n \rightarrow \inf log^{2}(n) / log^{4}(n) = 0 \rightarrow f3 = O(f4) $
+
+
+$ \lim n \rightarrow \inf f5/f4 = \lim n \rightarrow \inf log^{4}(log(n)) / log^{4}(n) = 0 \rightarrow f5 = O(f4) $
+
+$ \rightarrow f1 < f2 > f3 < f4 > f5 $
+
+Comparing $f1 \& f3$
+
+$ \lim n \rightarrow \inf f3/f1 = \lim n \rightarrow \inf log^{2}(n) / n^{4} = 0 \rightarrow f3 = O(f1) $
+
+$ \rightarrow f3 < f1 < f2 \& f5 < f4 > f3 $
+
+Comparing $f2 \& f5$
+
+$ \lim n \rightarrow \inf f5/f2 = \lim n \rightarrow \inf log^{4}(log(n))/n^{4}log(n) = \lim n \rightarrow \inf log(log(n))/nlog(n)  = 0 \rightarrow f5 = O(f2) $
+
+$ \rightarrow f3 < f1 < f2 \& f2 > f5 < f4 > f3 $
+
+Comparing $f3 \& f5$
+
+$ \lim n \rightarrow \inf f5/f3 = \lim n \rightarrow \inf log^{4}(log(n))/log^2(n) = \lim n \rightarrow \inf log(log(n))/log(n)  = 0 \rightarrow f5 = O(f3) $
+
+$ \rightarrow f5 < f3 < f1 < f2 \& f4 > f3 \& f4 > f5 $
+
+Comparing $f4 \& f1$
+
+$ \lim n \rightarrow \inf f4/f1 = \lim n \rightarrow \inf log^{4}(n) / n^{4} = 0 \rightarrow f4 = O(f1) $
+
+$ \rightarrow f5 < f3 < f4 < f1 < f2$
+
+$f5, f3, f4, f1, f2$
+
 \problempart  % Problem 1b)
-\problempart  % Problem 1c)
+Transform each function with logarithm and compare:
+
+$f'1 = log(4^{4^{n}}) = 4^{n}log(4)$
+
+$f'2 = log(4^{4^{n + 1}}) = 4^{n+1}log(4)$
+
+$f'3 = log(5^{4^{n}}) = 4^{n}log(5)$
+
+$f'4 = log(5^{4n}) = 4nlog(5)$
+
+$f'5 = log(5^{5n})= 5nlog(5)$
+
+By inspection:
+
+$ f4 = O(f5), f1 = O(f2), f4 = O(f3), f1 = O(f3), f3 = O(f2), f5 = O(f3), f5 = O(f1), f4 = O(f1) $
+
+$ f4 < f5, f1 < f2, f1 < f3, f3 < f2, f4 < f3, f5 < f3, f5 < f1, f4 < f1$
+
+$ \rightarrow f4 < f5 < f1 < f3 < f2$
+
+$ f4, f5, f1, f3, f2$
+
+\problempart  Simply first then compare % Problem 1c)
+
+$ f1 = \frac{n!}{4!(n-4)!} = O(n^{4}) $
+
+*$ f2 = \frac{n!}{(n/4)!(n-n/4)!} = \frac{n!}{(n/4)!(3n/4)!} = O(1)$ n ns in numerator, n ns in denominator.
+
+$ f3 = 4n! = O(n^n)$
+
+$ f4 = 4^{n/4} $
+
+$ f5 = (n/4)^{n/4} $
+
+Visually:
+
+$ f2 < f1 < f3, f5 = O(f3), f1 = O(f5), f2 = O(f4) $
+
+$ \rightarrow f2 < f1 < f5 < f3, f2 = O(f4) $
+
+I'll compare f4 and f3. I wasn't sure, so I use L'Hospital's rule
+
+$ \lim n \rightarrow \inf \frac{d}{dn} \frac{f4}{f3} = \lim n \rightarrow \inf \frac{d}{dn} \frac{4^{n/4}}{n^n} = \lim n \rightarrow \inf \frac{2^{n/2 -1}log(2)}{n^n(log(n) + 1)} = 0 $
+
+$ \rightarrow f4 = O(f3) $
+
+I still need to compare f4 and f5. I'll use L'Hospital's rule again.
+
+$ \lim n \rightarrow \inf \frac{d}{dn} \frac{f5}{f4} = \lim n \rightarrow \inf \frac{d}{dn} \frac{(n/4)^{n/4}}{4^{n/4}} = \lim n \rightarrow \inf \frac{2^{-n/2 -2}n^{n/4}log(n/4 +1)}{2^{n/2 -1}log(2)} = 0 $
+
+$ \rightarrow f5 = O(f4) $
+
+Because the $2^{-n/2 -2}$ term goes to $0$.
+
+$ \rightarrow f2 < f1 < f5 < f4 < f3 $
+
+$ f2, f1, f5, f4, f3 $
+
 \end{problemparts}
 
 \problem  % Problem 2
@@ -113,18 +213,18 @@
 \begin{problemparts}
 \problempart
 \begin{enumerate}
-\item
-\item
-\item
-\item
-\item
-\item
+\item $\theta(n)$ Branch factor 1. N iterations of c work.
+\item $O(n^2)$ Because summation over work on all levels from c to nc is $\frac{n*(n+1)}{2} = \frac{n^2 + n}{2} = O(n^2)$
+\item $\theta(log(n))$ Because $log(n)$ levels with c work.
+\item * $O(n)$ Because with branching factor 2, work $c$ per node, bottom row does most work, $c*2^{height = log(n)} = cn = O(n)$
+\item $\theta(nlog(n))$ Because there are $log(n)$ rows of $cn$ work per row.
+\item * $O(n^{log(3)})$ Because with branching factor 3, the bottom row does most work– $3^{height = log(n)}$ nodes of $c$ work $= c*n^{log(3)/log(2)} = O(n^{log(3)})$
 \end{enumerate}
 \problempart
 \begin{enumerate}
-\item 
-\item
-\end{enumerate}
+\item $T(n) = T(n/2) + c$ Binary search has one subproblem, with half the nodes to visit. $O(log(n))$ tota.
+\item * What was name of the matrix algorithm? $T(n) = T(n/2) + c*log(n)$ For $nxn$ matrix, Instead of doing $c$ work for 1 comparison, I search the n-width row, $log(n)$ work per subproblem.
+\end{enumerate}∫
 \end{problemparts}
 
 \problem  % Problem 3
@@ -148,4 +248,3 @@
 
 
 \end{document}
-

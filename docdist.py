@@ -46,18 +46,7 @@ def doc_dist(word_list1, word_list2):
             frequencies[word] = addArray if word not in frequencies else \
                 map(lambda a, b: a + (b if b is not None else 0), addArray, frequencies[word])
 
-    magsSquared = [0.0]*len(lists)
-    dot = 0.0
-    for freq in frequencies.itervalues():
-        magsSquared = map(lambda x, y: x + pow(y, 2), magsSquared, freq)
-        dot = dot + reduce(lambda x, y: x * y, freq)
-
-    mags = map(math.sqrt, magsSquared)
-    denominator = reduce(lambda x, y: x * y, mags)
-    cosign = dot / denominator
-
-    radians = math.acos(cosign)
-    print radians
+    radians = dotProduct(frequencies)
     return radians
 
 ##############################################
@@ -85,7 +74,12 @@ def doc_dist_pairs(word_list1, word_list2):
                 addArray if wordpair not in frequencies else \
                 map(lambda a, b: a + (b if b is not None else 0), addArray, frequencies[wordpair])
 
-    magsSquared = [0.0]*len(lists)
+    radians = dotProduct(frequencies)
+    return radians
+
+
+def dotProduct(frequencies):
+    magsSquared = [0.0]*2
     dot = 0.0
     for freq in frequencies.itervalues():
         magsSquared = map(lambda x, y: x + pow(y, 2), magsSquared, freq)
@@ -144,17 +138,7 @@ def doc_dist_50(word_list1, word_list2):
     # 5. Note that the dictionary has more than 50 elements.
 
     # 6. Get dot-product over dictionary's frequency values for each word. The same as in my passing (b) and (a), but on reduced data.
-    magsSquared = [0.0]*len(lists)
-    dot = 0.0
-    for freq in frequencies.itervalues():
-        magsSquared = map(lambda x, y: x + pow(y, 2), magsSquared, freq)
-        dot = dot + reduce(lambda x, y: x * y, freq)
-
-    mags = map(math.sqrt, magsSquared)
-    denominator = reduce(lambda x, y: x * y, mags)
-    cosign = dot / denominator
-
-    radians = math.acos(cosign)
+    radians = dotProduct(frequencies)
     # output:
     # 0.423977014818
     # 0.963287391907

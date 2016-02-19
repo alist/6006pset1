@@ -175,9 +175,9 @@ $ f4, f5, f1, f3, f2$
 
 $ f1 = \frac{n!}{4!(n-4)!} = O(n^{4}) $
 
-% $f2$ via Sterling's approximation $x! \simeq \sqrt{2 \pi x}\left(\frac{x}{e}\right)^x$
+$f2$ via Sterling's approximation can be $ln$'d $ln(f2) = \ln(n!) = n\ln(n) - n +O(\ln(n)) \simeq O(nln(n))$ Compare $ln(f2)$ as $O(nlnn)$ %$x! \simeq \sqrt{2 \pi x}\left(\frac{x}{e}\right)^x$
 
-$ f2 = \frac{n!}{(n/4)!(n-n/4)!} = \frac{n!}{(n/4)!(3n/4)!}  = \frac{(n)(n-1)(n-2)*...*(3n/4)}{(n/4)(n/4 -1)(n/4 - 2)*...*(1)} = O(n^{n/4})$
+$ f2 = \frac{n!}{(n/4)!(n-n/4)!} = \frac{n!}{(n/4)!(3n/4)!}  = \frac{(n)(n-1)(n-2)*...*(3n/4)}{(n/4)(n/4 -1)(n/4 - 2)*...*(1)} = O(n^{n/4})$ Yet probably faster
 
 $ f3 = 4n! = O(n^n)$
 
@@ -259,13 +259,11 @@ return ans
 \problempart
 Part A: $O(n)$
 \begin{enumerate}
-\item get the frequency of the words for each list $O(n)$
-
 \item Create a new dictionary to maps words to array containing the word's count for each word list $O(m)$
   \begin{enumerate}
   \item Iterate through each word list $O(1)$
 
-  \item Iterate through each word in list $O(m)$
+  \item Iterate through each word in list $O(n)$
 
   \item Add frequency of word in current iterating list's $wordList$ to the $word$'s dictionary entry, at the column for the current iterating list $O(1)$
   \end{enumerate}
@@ -274,20 +272,18 @@ Part A: $O(n)$
 
 Part B: $O(n)$
 \begin{enumerate}
-\item get the frequency of the words for each list $O(n)$
-
 \item Create a new dictionary to maps words to array containing the word's count for each word list $O(m)$
   \begin{enumerate}
   \item Iterate through each word list $O(1)$
 
-  \item Iterate through each word in list $O(m)$
+  \item Iterate through each word in list $O(n)$
 
-  \item Add frequency of word in current iterating list's $wordList$ to the $word + nextWord$'s dictionary entry, at the column for the current iterating list $O(1)$
+  \item Add frequency of $word + nextWord$ in current iterating list's $wordList$ to the $word + nextWord$'s dictionary entry, at the column for the current iterating list $O(1)$
   \end{enumerate}
-  \item Get dot-product over dictionary's frequency values for each word $O(m)$
+  \item Get dot-product over dictionary's frequency values for each word pair $O(m + n)$ $m$ if all pairs the same, up to $n$ if all pairs different
 \end{enumerate}
 
-Part c: $O(n + mlogm)$
+Part c: $O(n + mlogm)$ $mlogn$ may be greater than n, for example if no words occur twice.
 
 \begin{enumerate}
 \item get the frequency of the words for each list $O(n)$
@@ -308,6 +304,17 @@ Part c: $O(n + mlogm)$
 \end{enumerate}
 
 \problempart
+
+henry\_iv\_1 with
+\begin{verbatim}
+tempest doc_dist: 0.3929, pairs: 1.1059, dist_50: 0.3681
+pirates doc_dist: 0.5333, pairs: 1.2576, dist_50: 0.5073
+henry_iv_2 doc_dist: 0.3024, pairs: 0.9143, dist_50: 0.2901
+\end{verbatim}
+
+Conclusions:
+$doc\_dist$ is the base case of accuracy. $doc\_dist\_50$ is almost as accurate, for a potential constant factor improvement in runtime. Pair distance is not a comparison method consistent with $doc\_dist$.
+
 \end{problemparts}
 \end{problems}
 

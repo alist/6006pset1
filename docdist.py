@@ -144,3 +144,14 @@ def doc_dist_50(word_list1, word_list2):
     # 0.963287391907
     # 0.871419668472
     return radians
+
+# UNCOMMENT FOR ANALYSIS
+# henry_iv_1_words = extract_words("plays/henry_iv_1.txt")
+# otherPlays = ["plays/tempest.txt", "plays/pirates_of_penzance.txt", "plays/henry_iv_2.txt"]
+# otherPlaysWords = map(lambda name: extract_words(name), otherPlays)
+#
+# for play, words in zip(otherPlays, otherPlaysWords):
+#     dist = doc_dist(henry_iv_1_words, words)
+#     distPairs = doc_dist_pairs(henry_iv_1_words, words)
+#     dist50 = doc_dist_50(henry_iv_1_words, words)
+#     print "henry_iv_1 v {3} doc_dist: {0}, doc_dist_pairs: {1}, doc_dist_50: {2}".format(dist, distPairs, dist50, play)

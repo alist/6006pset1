@@ -111,13 +111,13 @@ def doc_dist_50(word_list1, word_list2):
             frequencyLists[li][word] = 1 if word not in frequencyLists[li] else \
                 1 + frequencyLists[li][word]
 
+
     # 2. Sort lists of words by frequency
     sortedFrquencyLists = [[] for _ in range(len(lists))]
-    # TODO Why do I need an alist2 here? If it's alist, it gives me "using possibly undefined loop variable"
-    alist2=None
-    for li, alist2 in enumerate(frequencyLists):
-        sortedFrquencyLists[li] = sorted(alist2, lambda left, right: \
-            cmp(left, right) if alist2[left] == alist2[right] else 1 if alist2[left] > alist2[right] else -1, reverse=True)
+    alist=None
+    for li, alist in enumerate(frequencyLists):
+        sortedFrquencyLists[li] = sorted(alist, lambda left, right: \
+            cmp(right, left) if alist[left] == alist[right] else 1 if alist[left] > alist[right] else -1, reverse=True)
 
     # 3. Truncate sorted word lists to 50 words per list
     trimmedLists = map(lambda alist: alist[:50], sortedFrquencyLists)

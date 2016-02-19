@@ -40,6 +40,7 @@ def run_test(test_num):
 				cur = float(expected_results[i])
 				user = float(user_results[i])
 				if abs(cur - user) > 0.011:
+					print "u: {0} c: {1}".format(user, cur)
 					match = False
 		return match
 

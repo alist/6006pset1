@@ -5,6 +5,7 @@
 
 \usepackage{amsmath}
 \usepackage{color}
+\usepackage{clrscode}
 
 \input{macros}
 
@@ -174,7 +175,9 @@ $ f4, f5, f1, f3, f2$
 
 $ f1 = \frac{n!}{4!(n-4)!} = O(n^{4}) $
 
-*$ f2 = \frac{n!}{(n/4)!(n-n/4)!} = \frac{n!}{(n/4)!(3n/4)!} = O(1)$ n ns in numerator, n ns in denominator.
+% $f2$ via Sterling's approximation $x! \simeq \sqrt{2 \pi x}\left(\frac{x}{e}\right)^x$
+
+$ f2 = \frac{n!}{(n/4)!(n-n/4)!} = \frac{n!}{(n/4)!(3n/4)!}  = \frac{(n)(n-1)(n-2)*...*(3n/4)}{(n/4)(n/4 -1)(n/4 - 2)*...*(1)} = O(n^{n/4})$
 
 $ f3 = 4n! = O(n^n)$
 
@@ -216,14 +219,16 @@ $ f2, f1, f5, f4, f3 $
 \item $\theta(n)$ Branch factor 1. N iterations of c work.
 \item $O(n^2)$ Because summation over work on all levels from c to nc is $\frac{n*(n+1)}{2} = \frac{n^2 + n}{2} = O(n^2)$
 \item $\theta(log(n))$ Because $log(n)$ levels with c work.
-\item * $O(n)$ Because with branching factor 2, work $c$ per node, bottom row does most work, $c*2^{height = log(n)} = cn = O(n)$
+\item $O(n)$ Because with branching factor 2, work $c$ per node, bottom row does most work, $c*2^{height = log(n)} = cn = O(n)$
 \item $\theta(nlog(n))$ Because there are $log(n)$ rows of $cn$ work per row.
-\item * $O(n^{log(3)})$ Because with branching factor 3, the bottom row does most work– $3^{height = log(n)}$ nodes of $c$ work $= c*n^{log(3)/log(2)} = O(n^{log(3)})$
+\item $O(n^{log(3)})$ Because with branching factor 3, the bottom row does most work– $3^{height = log(n)}$ nodes of $c$ work $= c*n^{log(3)/log(2)} = O(n^{log(3)})$
 \end{enumerate}
 \problempart
 \begin{enumerate}
 \item $T(n) = T(n/2) + c$ Binary search has one subproblem, with half the nodes to visit. $O(log(n))$ tota.
-\item * What was name of the matrix algorithm? $T(n) = T(n/2) + c*log(n)$ For $nxn$ matrix, Instead of doing $c$ work for 1 comparison, I search the n-width row, $log(n)$ work per subproblem.
+
+%problem 1.2b.2
+\item $T(n) = T(n/2) + c*log(n)$ For $nxn$ matrix, Instead of doing $c$ work for 1 comparison, I search the n-width row, $log(n)$ work per subproblem.
 \end{enumerate}∫
 \end{problemparts}
 
@@ -231,11 +236,15 @@ $ f2, f1, f5, f4, f3 $
 \begin{problemparts}
 \problempart The nieve solution is $O(n^4)$ with 4-nested loops. It holds a variable named $maxGain$ while (for abuy1 in A for first buy date (for asell1 $>$ abuy1 in A for first sell date (for abuy2 $>=$ asell1 in A for second buy date (for asell2 $>$ abuy2 in A for second sell date ( maxGain = A[asell1] - A[abuy1] + A[asell2] - A[abuy2] if A[asell1] - A[abuy1] + A[asell2] - A[abuy2] $>$ maxGain))))
 
-
-\texttt { code here code here\\
-\
- code here code here }
-
+\begin{verbatim}
+ans = 0
+for b0 in range(n):
+  for s0 in range(b0,n):
+    for b1 in range(s0,n):
+      for s1 in range(b1,n):
+        ans = max(ans, A[asell1] - A[abuy1] + A[asell2] - A[abuy2])
+return ans
+\end{verbatim}
 
 \problempart
 \end{problemparts}
@@ -248,10 +257,58 @@ $ f2, f1, f5, f4, f3 $
 \problempart
 \problempart
 \problempart
+Part A: $O(n)$
+\begin{enumerate}
+\item get the frequency of the words for each list $O(n)$
+
+\item Create a new dictionary to maps words to array containing the word's count for each word list $O(m)$
+  \begin{enumerate}
+  \item Iterate through each word list $O(1)$
+
+  \item Iterate through each word in list $O(m)$
+
+  \item Add frequency of word in current iterating list's $wordList$ to the $word$'s dictionary entry, at the column for the current iterating list $O(1)$
+  \end{enumerate}
+  \item Get dot-product over dictionary's frequency values for each word $O(m)$
+\end{enumerate}
+
+Part B: $O(n)$
+\begin{enumerate}
+\item get the frequency of the words for each list $O(n)$
+
+\item Create a new dictionary to maps words to array containing the word's count for each word list $O(m)$
+  \begin{enumerate}
+  \item Iterate through each word list $O(1)$
+
+  \item Iterate through each word in list $O(m)$
+
+  \item Add frequency of word in current iterating list's $wordList$ to the $word + nextWord$'s dictionary entry, at the column for the current iterating list $O(1)$
+  \end{enumerate}
+  \item Get dot-product over dictionary's frequency values for each word $O(m)$
+\end{enumerate}
+
+Part c: $O(n + mlogm)$
+
+\begin{enumerate}
+\item get the frequency of the words for each list $O(n)$
+
+\item Sort lists of words by frequency $O(mlogm)$
+
+\item Truncate sorted word lists to 50 words per list $O(1)$
+
+\item Create a new dictionary to maps words to array containing the word's count for each word list $O(k)$
+  \begin{enumerate}
+  \item Iterate through each truncated word list $O(1)$
+
+  \item Iterate through each word in list $O(k)$
+
+  \item Add frequency of word in current iterating list's $wordList$ to the word's dictionary entry, at the column for the current iterating list $O(1)$
+  \end{enumerate}
+\item Get dot-product over dictionary's frequency values for each word $O(k)$
+\end{enumerate}
+
 \problempart
 \end{problemparts}
 \end{problems}
-
-
 
 \end{document}
